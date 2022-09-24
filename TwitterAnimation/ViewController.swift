@@ -9,6 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    
+    
+    // MARK: - Views
+    // view property animator
+    let animator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: nil)
+    
+    let slider = UISlider()
+    
     // twitter animation
     let image: UIImageView = {
         let image = UIImageView()
@@ -32,11 +40,25 @@ class ViewController: UIViewController {
     
     let animatedButton2 = AnimatedButton2(title: "Animations2")
     
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // view property animator
+        view.backgroundColor = .yellow
+        
+        layoutSlider()
+        
+        animator.addAnimations {
+            self.view.backgroundColor = .white
+        }
+        
+        slider.addTarget(self, action: #selector(handleSliderChanged), for: .allEvents)
+        // twitter animation
         twitterAnimation()
         
+        // animated button
         layoutButton()
         
         basicView.backgroundColor = .blue
@@ -50,10 +72,10 @@ class ViewController: UIViewController {
         xAnchor.isActive = true
         basicView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        heightAnchor = basicView.heightAnchor.constraint(equalToConstant: 200)
+        heightAnchor = basicView.heightAnchor.constraint(equalToConstant: 100)
         heightAnchor.isActive = true
         
-        widthAnchor = basicView.widthAnchor.constraint(equalToConstant: 200)
+        widthAnchor = basicView.widthAnchor.constraint(equalToConstant: 100)
         widthAnchor.isActive = true
         
         
@@ -64,7 +86,7 @@ class ViewController: UIViewController {
     }
     
     // twitter animation
-    func twitterAnimation() {
+    fileprivate func twitterAnimation() {
         view.addSubview(image)
         image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animate)))
         image.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -76,7 +98,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func animate() {
+    @objc fileprivate func animate() {
         image.animationImages = spriteImages
         image.animationDuration = 5
         image.animationRepeatCount = 1
@@ -87,11 +109,11 @@ class ViewController: UIViewController {
     @objc fileprivate func animateBox() {
         
         yAnchor.isActive = false
-        yAnchor = basicView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -200)
+        yAnchor = basicView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150)
         yAnchor.isActive = true
         
         widthAnchor.isActive = false
-        widthAnchor = basicView.widthAnchor.constraint(equalToConstant: 300)
+        widthAnchor = basicView.widthAnchor.constraint(equalToConstant: 150)
         widthAnchor.isActive = true
         
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
@@ -100,9 +122,9 @@ class ViewController: UIViewController {
         
     }
     
-    var tapped:Bool = false
+    fileprivate var tapped:Bool = false
     
-    @objc func animateOnTap() {
+    @objc fileprivate func animateOnTap() {
         if tapped {
             widthAnchor.isActive = false
             widthAnchor = basicView.widthAnchor.constraint(equalToConstant: view.frame.width/2)
@@ -132,7 +154,7 @@ class ViewController: UIViewController {
 
 extension ViewController {
     // animated button
-    func layoutButton() {
+    fileprivate func layoutButton() {
         view.addSubview(animatedButton)
         animatedButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -149,5 +171,22 @@ extension ViewController {
             animatedButton2.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             view.trailingAnchor.constraint(equalTo: animatedButton2.trailingAnchor, constant: 20)
         ])
+    }
+}
+
+extension ViewController {
+    fileprivate func layoutSlider() {
+        view.addSubview(slider)
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            slider.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
+            slider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            view.trailingAnchor.constraint(equalTo: slider.trailingAnchor, constant: 8)
+        ])
+    }
+    
+    @objc fileprivate func handleSliderChanged(slide: UISlider) {
+        animator.fractionComplete = CGFloat(slide.value)
     }
 }
