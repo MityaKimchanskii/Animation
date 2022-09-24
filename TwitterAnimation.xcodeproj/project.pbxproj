@@ -13,6 +13,8 @@
 		3B64879228DBA4750021D99D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B64879028DBA4750021D99D /* Main.storyboard */; };
 		3B64879428DBA4760021D99D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B64879328DBA4760021D99D /* Assets.xcassets */; };
 		3B64879728DBA4760021D99D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B64879528DBA4760021D99D /* LaunchScreen.storyboard */; };
+		3B905BB528DED62B00D561F3 /* AnimatedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B905BB428DED62B00D561F3 /* AnimatedButton.swift */; };
+		3B905BB728DEDFB900D561F3 /* AnimatedButton2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B905BB628DEDFB900D561F3 /* AnimatedButton2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		3B64879328DBA4760021D99D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B64879628DBA4760021D99D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B64879828DBA4760021D99D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B905BB428DED62B00D561F3 /* AnimatedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButton.swift; sourceTree = "<group>"; };
+		3B905BB628DEDFB900D561F3 /* AnimatedButton2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButton2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				3B64879328DBA4760021D99D /* Assets.xcassets */,
 				3B64879528DBA4760021D99D /* LaunchScreen.storyboard */,
 				3B64879828DBA4760021D99D /* Info.plist */,
+				3B905BB428DED62B00D561F3 /* AnimatedButton.swift */,
+				3B905BB628DEDFB900D561F3 /* AnimatedButton2.swift */,
 			);
 			path = TwitterAnimation;
 			sourceTree = "<group>";
@@ -141,6 +147,8 @@
 				3B64878F28DBA4750021D99D /* ViewController.swift in Sources */,
 				3B64878B28DBA4750021D99D /* AppDelegate.swift in Sources */,
 				3B64878D28DBA4750021D99D /* SceneDelegate.swift in Sources */,
+				3B905BB528DED62B00D561F3 /* AnimatedButton.swift in Sources */,
+				3B905BB728DEDFB900D561F3 /* AnimatedButton2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
