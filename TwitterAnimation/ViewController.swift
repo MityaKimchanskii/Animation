@@ -60,6 +60,8 @@ class ViewController: UIViewController {
         view.backgroundColor = .yellow
         imageBluerAnimation2()
         
+        setupCABasic()
+        
         layoutSlider()
         
         animator.addAnimations {
@@ -127,13 +129,15 @@ class ViewController: UIViewController {
         
         blurView.frame = view.frame
         
-        self.blurView.alpha = 0.5
+        self.blurView.alpha = 0.1
+        
+        image.layer.masksToBounds = true
         
         NSLayoutConstraint.activate([
             image2.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
             image2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            image2.heightAnchor.constraint(equalToConstant: 150),
-            image2.widthAnchor.constraint(equalToConstant: 90)
+            image2.heightAnchor.constraint(equalToConstant: 300),
+            image2.widthAnchor.constraint(equalToConstant: 150)
         ])
         
         animator.addAnimations {
@@ -144,7 +148,7 @@ class ViewController: UIViewController {
     
     @objc fileprivate func animate() {
         image.animationImages = spriteImages
-        image.animationDuration = 5
+        image.animationDuration = 1
         image.animationRepeatCount = 1
         image.startAnimating()
     }
@@ -175,6 +179,27 @@ class ViewController: UIViewController {
             
             self.box.transform = transform
         }
+    }
+    
+    fileprivate func setupCABasic() {
+        let basic0 = CABasicAnimation(keyPath: "transform.scale")
+        basic0.toValue = 2
+        basic0.duration = 2
+        
+        basic0.fillMode = CAMediaTimingFillMode.forwards
+        basic0.isRemovedOnCompletion = false
+        
+        image2.layer.add(basic0, forKey: nil)
+        
+        let springAnimation = CASpringAnimation(keyPath: "transform.scale")
+        
+        springAnimation.fromValue = 0
+        springAnimation.toValue = 1
+        springAnimation.damping = 5
+        springAnimation.mass = 0
+        springAnimation.duration = 10
+        
+        image.layer.add(springAnimation, forKey: nil)
     }
     
     fileprivate var tapped:Bool = false
