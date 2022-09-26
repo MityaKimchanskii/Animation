@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         imageBluerAnimation2()
         
         setupCABasic()
-        
+        setupCAGradientLayer()
         layoutSlider()
         
         animator.addAnimations {
@@ -108,6 +108,15 @@ class ViewController: UIViewController {
         ])
         
         perform(#selector(self.animateBox2), with: nil, afterDelay: 1)
+    }
+    
+    
+    fileprivate func setupCAGradientLayer() {
+        let gradient = CAGradientLayer()
+        gradient.frame = blurView.frame
+        gradient.colors = [UIColor.cyan.cgColor, UIColor.orange.cgColor]
+        
+        blurView.layer.addSublayer(gradient)
     }
     
     // twitter animation
@@ -196,10 +205,10 @@ class ViewController: UIViewController {
         springAnimation.fromValue = 0
         springAnimation.toValue = 1
         springAnimation.damping = 5
-        springAnimation.mass = 0
+        springAnimation.mass = 5
         springAnimation.duration = 10
         
-        image.layer.add(springAnimation, forKey: nil)
+        image2.layer.add(springAnimation, forKey: nil)
     }
     
     fileprivate var tapped:Bool = false
