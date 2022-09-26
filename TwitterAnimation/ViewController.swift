@@ -9,11 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
-    
     // MARK: - Views
     // view property animator
     let animator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: nil)
+    
+    let blurView: UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     
     let slider = UISlider()
     
@@ -28,6 +28,16 @@ class ViewController: UIViewController {
     
     var spriteImages = [UIImage]()
     
+    // bluer image animation
+    let image2: UIImageView = {
+        let image = UIImageView()
+        image.isUserInteractionEnabled = true
+        image.image = UIImage(named: "1")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     // basic animation
     let basicView = UIView()
     var yAnchor:NSLayoutConstraint!
@@ -40,6 +50,7 @@ class ViewController: UIViewController {
     
     let animatedButton2 = AnimatedButton2(title: "Animations2")
     
+    let box = UIView()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -47,6 +58,7 @@ class ViewController: UIViewController {
         
         // view property animator
         view.backgroundColor = .yellow
+        imageBluerAnimation2()
         
         layoutSlider()
         
@@ -83,6 +95,17 @@ class ViewController: UIViewController {
         
         basicView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animateOnTap)))
         
+        view.addSubview(box)
+        box.translatesAutoresizingMaskIntoConstraints = false
+        box.backgroundColor = .red
+        NSLayoutConstraint.activate([
+            box.topAnchor.constraint(equalToSystemSpacingBelow: slider.bottomAnchor, multiplier: 1),
+            box.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            box.heightAnchor.constraint(equalToConstant: 100),
+            box.widthAnchor.constraint(equalToConstant: 100)
+        ])
+        
+        perform(#selector(self.animateBox2), with: nil, afterDelay: 1)
     }
     
     // twitter animation
@@ -95,6 +118,27 @@ class ViewController: UIViewController {
         image.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         for i in 0..<29 {
             spriteImages.append(UIImage(named: "tile0\(i)")!)
+        }
+    }
+    
+    fileprivate func imageBluerAnimation2() {
+        view.addSubview(image2)
+        view.addSubview(blurView)
+        
+        blurView.frame = view.frame
+        
+        self.blurView.alpha = 0.5
+        
+        NSLayoutConstraint.activate([
+            image2.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
+            image2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            image2.heightAnchor.constraint(equalToConstant: 150),
+            image2.widthAnchor.constraint(equalToConstant: 90)
+        ])
+        
+        animator.addAnimations {
+            self.blurView.alpha = 1
+            self.image2.transform = CGAffineTransform(scaleX: 2, y: 2)
         }
     }
     
@@ -120,6 +164,17 @@ class ViewController: UIViewController {
             self.view.layoutIfNeeded()
         })
         
+    }
+    
+    @objc fileprivate func animateBox2() {
+        UIView.animate(withDuration: 0.3, delay: 1, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseIn) {
+            var transform = CGAffineTransform.identity
+            transform = transform.scaledBy(x: 1.6, y: 1.6)
+            transform = transform.translatedBy(x: 10, y: 20)
+            transform = transform.rotated(by: 90)
+            
+            self.box.transform = transform
+        }
     }
     
     fileprivate var tapped:Bool = false
